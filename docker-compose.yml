@@ -19,9 +19,7 @@ services:
 
   # Backend API
   backend:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: lahiruimesh/todomasterbackend:v1.0.0
     container_name: todo-backend
     environment:
       NODE_ENV: production
@@ -38,9 +36,6 @@ services:
     networks:
       - todo-network
     restart: unless-stopped
-    volumes:
-      - .:/app
-      - /app/node_modules
 
 volumes:
   postgres_data:
