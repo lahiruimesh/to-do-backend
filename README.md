@@ -2,7 +2,7 @@
 
 A robust Node.js/Express backend API for the TodoMaster task management application with Docker support.
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 - Node.js 18+
@@ -10,7 +10,7 @@ A robust Node.js/Express backend API for the TodoMaster task management applicat
 - Docker (optional)
 - Git
 
-## 📦 Installation & Setup
+##  Installation & Setup
 
 ### Local Development
 
@@ -35,7 +35,7 @@ npm run dev
 
 The API will be available at `http://localhost:5000`
 
-## 🐳 Docker Deployment
+## Docker Deployment
 
 ### Using Docker Compose (Recommended)
 
@@ -98,7 +98,7 @@ docker run -d \
   lahiruimesh/todomasterbackend:v1.0.0
 ```
 
-## ⚙️ Configuration
+##  Configuration
 
 ### Environment Variables
 
@@ -124,7 +124,7 @@ DB_USER=todouser
 DB_PASSWORD=your_password_here
 ```
 
-## 📡 API Endpoints
+##  API Endpoints
 
 ### Health Check
 - `GET /health` - Server health status
@@ -153,7 +153,7 @@ curl -X POST http://localhost:5000/api/todos \
 curl -X PATCH http://localhost:5000/api/todos/1/toggle
 ```
 
-## 🧪 Testing
+##  Testing
 
 ```bash
 # Run all tests
@@ -166,7 +166,7 @@ npm run test:watch
 npm run test:coverage
 ```
 
-## 🏗️ Build Scripts
+##  Build Scripts
 
 The project includes automated build scripts:
 
@@ -184,7 +184,7 @@ The project includes automated build scripts:
 ./build.sh all [tag]
 ```
 
-## 📚 Features
+##  Features
 
 - ✅ Full CRUD operations for todos
 - ✅ PostgreSQL database with migrations

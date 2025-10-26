@@ -19,7 +19,10 @@ services:
 
   # Backend API
   backend:
-    image: lahiruimesh/todomasterbackend:v1.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: todomaster-backend-local:latest
     container_name: todo-backend
     environment:
       NODE_ENV: production
