@@ -4,6 +4,21 @@ const { validateTodo, validateTodoUpdate, validateId } = require('../middleware/
 
 const router = express.Router();
 
+// GET /api/todos/pending - Get only pending todos (last 5)
+router.get('/pending', async (req, res, next) => {
+  try {
+    const todos = await Todo.findPending();
+
+    res.json({
+      success: true,
+      data: todos,
+      count: todos.length
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 // GET /api/todos - Get all todos
 router.get('/', async (req, res, next) => {
   try {

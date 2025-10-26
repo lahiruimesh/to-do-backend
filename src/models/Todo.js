@@ -1,19 +1,22 @@
 const db = require('../db');
 
 class Todo {
-  // Get all todos
+  // Get all todos (only incomplete, limited to 5 most recent)
   static async findAll() {
-    return db('todos').orderBy('created_at', 'desc');
+    return db('task')
+      .where('completed', false)
+      .orderBy('created_at', 'desc')
+      .limit(5);
   }
 
   // Get todo by id
   static async findById(id) {
-    return db('todos').where('id', id).first();
+    return db('task').where('id', id).first();
   }
 
   // Create new todo
   static async create(todoData) {
-    const [newTodo] = await db('todos')
+    const [newTodo] = await db('task')
       .insert(todoData)
       .returning('*');
     return newTodo;
@@ -21,7 +24,7 @@ class Todo {
 
   // Update todo by id
   static async update(id, todoData) {
-    const [updatedTodo] = await db('todos')
+    const [updatedTodo] = await db('task')
       .where('id', id)
       .update({
         ...todoData,
@@ -33,7 +36,7 @@ class Todo {
 
   // Delete todo by id
   static async delete(id) {
-    const deletedCount = await db('todos')
+    const deletedCount = await db('task')
       .where('id', id)
       .del();
     return deletedCount > 0;
@@ -41,16 +44,17 @@ class Todo {
 
   // Get completed todos
   static async findCompleted() {
-    return db('todos')
+    return db('task')
       .where('completed', true)
       .orderBy('updated_at', 'desc');
   }
 
-  // Get pending todos
+  // Get pending todos (limited to 5 most recent)
   static async findPending() {
-    return db('todos')
+    return db('task')
       .where('completed', false)
-      .orderBy('created_at', 'desc');
+      .orderBy('created_at', 'desc')
+      .limit(5);
   }
 }
 
