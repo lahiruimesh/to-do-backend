@@ -1,28 +1,203 @@
-# Todo App Backend
+# TodoMaster Backend API
 
-A RESTful API backend for a Todo application built with Node.js, Express, PostgreSQL, and Knex.js.
+A robust Node.js/Express backend API for the TodoMaster task management application with Docker support.
 
-## Features
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js 18+
+- PostgreSQL 15+
+- Docker (optional)
+- Git
+
+## 📦 Installation & Setup
+
+### Local Development
+
+```bash
+# Clone the repository
+git clone https://github.com/lahiruimesh/todo-backend.git
+cd todo-backend
+
+# Install dependencies
+npm install
+
+# Configure environment variables
+cp .env.example .env
+# Edit .env with your database credentials
+
+# Run database migrations
+npm run migrate
+
+# Start development server
+npm run dev
+```
+
+The API will be available at `http://localhost:5000`
+
+## 🐳 Docker Deployment
+
+### Using Docker Compose (Recommended)
+
+The backend includes a complete `docker-compose.yml` that sets up both the backend and PostgreSQL database:
+
+```bash
+# Start the backend with database
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop services
+docker-compose down
+
+# Stop and remove volumes (database data)
+docker-compose down -v
+```
+
+### Build Docker Image
+
+```bash
+# Build the image
+docker build -t todomaster-backend:latest .
+
+# Or use the build script
+chmod +x build.sh
+./build.sh single latest
+```
+
+### Run with Docker
+
+```bash
+# Run with environment variables
+docker run -d \
+  --name todomaster-backend \
+  -p 5000:5000 \
+  -e DB_HOST=your-db-host \
+  -e DB_USER=your-db-user \
+  -e DB_PASSWORD=your-db-password \
+  -e DB_NAME=todoapp \
+  -e NODE_ENV=production \
+  todomaster-backend:latest
+```
+
+### Docker Hub Image
+
+```bash
+# Pull from Docker Hub
+docker pull lahiruimesh/todomasterbackend:v1.0.0
+
+# Run the official image
+docker run -d \
+  --name todomaster-backend \
+  -p 5000:5000 \
+  -e DB_HOST=your-db-host \
+  -e DB_USER=your-db-user \
+  -e DB_PASSWORD=your-db-password \
+  -e DB_NAME=todoapp \
+  lahiruimesh/todomasterbackend:v1.0.0
+```
+
+## ⚙️ Configuration
+
+### Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `NODE_ENV` | Environment (development/production) | `development` |
+| `PORT` | Server port | `5000` |
+| `DB_HOST` | Database host | `localhost` |
+| `DB_PORT` | Database port | `5432` |
+| `DB_NAME` | Database name | `todoapp` |
+| `DB_USER` | Database username | `todouser` |
+| `DB_PASSWORD` | Database password | `required` |
+
+### Example .env file
+
+```env
+NODE_ENV=development
+PORT=5000
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=todoapp
+DB_USER=todouser
+DB_PASSWORD=your_password_here
+```
+
+## 📡 API Endpoints
+
+### Health Check
+- `GET /health` - Server health status
+
+### Todos
+- `GET /api/todos/pending` - Get last 5 pending todos
+- `GET /api/todos` - Get all todos (with optional status filter)
+- `GET /api/todos/:id` - Get specific todo
+- `POST /api/todos` - Create new todo
+- `PUT /api/todos/:id` - Update todo
+- `PATCH /api/todos/:id/toggle` - Toggle todo completion
+- `DELETE /api/todos/:id` - Delete todo
+
+### Example API Usage
+
+```bash
+# Get pending todos
+curl http://localhost:5000/api/todos/pending
+
+# Create a new todo
+curl -X POST http://localhost:5000/api/todos \
+  -H "Content-Type: application/json" \
+  -d '{"title": "Learn Docker", "description": "Build and deploy containers"}'
+
+# Toggle todo completion
+curl -X PATCH http://localhost:5000/api/todos/1/toggle
+```
+
+## 🧪 Testing
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with coverage
+npm run test:coverage
+```
+
+## 🏗️ Build Scripts
+
+The project includes automated build scripts:
+
+```bash
+# Build for current platform
+./build.sh single [tag]
+
+# Build for multiple platforms
+./build.sh multi [tag]
+
+# Run tests in Docker
+./build.sh test
+
+# Run all (test + build)
+./build.sh all [tag]
+```
+
+## 📚 Features
 
 - ✅ Full CRUD operations for todos
 - ✅ PostgreSQL database with migrations
-- ✅ Input validation and error handling
+- ✅ Input validation and error handling  
 - ✅ Filter todos by status (completed/pending)
+- ✅ Show only last 5 pending tasks
 - ✅ Comprehensive test suite with Jest
 - ✅ Environment-based configuration
 - ✅ CORS support for frontend integration
+- ✅ Docker containerization
+- ✅ Health check endpoints
 
-## Prerequisites
-
-Before running this application, make sure you have the following installed:
-
-- **Node.js** (v14 or higher)
-- **PostgreSQL** (v12 or higher)
-- **npm** or **yarn**
-
-## Quick Start
-
-### 1. Clone and Navigate
+## 1. Clone and Navigate
 
 ```bash
 git clone <repository-url>
